@@ -19,10 +19,13 @@ export default function DashboardPage() {
   const loadTasks = async (filter?: 'all' | 'pending' | 'completed') => {
     try {
       const filterToUse = filter || currentFilter;
+      console.log('Loading tasks with filter:', filterToUse);
       const data = await api.listTasks(filterToUse);
+      console.log('Tasks loaded:', data);
       setTaskData(data);
       setError('');
     } catch (err) {
+      console.error('Error loading tasks:', err);
       setError(err instanceof Error ? err.message : 'Failed to load tasks');
     } finally {
       setLoading(false);
