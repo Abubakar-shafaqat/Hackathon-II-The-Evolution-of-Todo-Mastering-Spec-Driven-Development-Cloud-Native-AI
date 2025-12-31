@@ -11,7 +11,8 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables"""
 
     # Database Configuration
-    DATABASE_URL: str = "postgresql+asyncpg://user:password@localhost/todo_db"
+    # Note: Use postgresql:// (psycopg2) for sync operations, not postgresql+asyncpg://
+    DATABASE_URL: str = "postgresql://user:password@localhost/todo_db"
 
     # Authentication & Security
     BETTER_AUTH_SECRET: str = "your-secret-key-min-32-characters-long-change-in-production"

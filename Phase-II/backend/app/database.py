@@ -9,6 +9,7 @@ from app.config import settings
 
 
 # Create database engine with connection pooling
+# Note: Use postgresql:// (psycopg2) not postgresql+asyncpg:// for sync operations
 engine = create_engine(
     settings.DATABASE_URL,
     echo=True,  # Log SQL queries (disable in production)
@@ -24,6 +25,9 @@ def create_db_and_tables():
     Create all database tables defined by SQLModel models
     Called on application startup
     """
+    # Import models to register them with SQLModel metadata
+    from app.models import User, Task  # noqa: F401
+
     SQLModel.metadata.create_all(engine)
 
 
