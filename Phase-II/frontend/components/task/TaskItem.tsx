@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { api } from '@/lib/api';
 import type { Task, TaskUpdate } from '@/lib/types';
+import { useToast } from '@/components/ui/ToastContainer';
 
 interface TaskItemProps {
   task: Task;
@@ -17,16 +18,16 @@ export default function TaskItem({ task, onTaskUpdated }: TaskItemProps) {
     description: task.description || '',
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const { success, error } = useToast();
 
   const handleToggleComplete = async () => {
     setLoading(true);
-    setError('');
     try {
       await api.toggleComplete(task.id);
+      success(task.completed ? 'Task marked as incomplete' : 'Task marked as complete');
       onTaskUpdated();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to toggle completion');
+      error(err instanceof Error ? err.message : 'Failed to toggle completion');
     } finally {
       setLoading(false);
     }
@@ -34,13 +35,13 @@ export default function TaskItem({ task, onTaskUpdated }: TaskItemProps) {
 
   const handleEdit = async () => {
     setLoading(true);
-    setError('');
     try {
       await api.updateTask(task.id, editData);
       setIsEditing(false);
+      success('Task updated successfully');
       onTaskUpdated();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to update task');
+      error(err instanceof Error ? err.message : 'Failed to update task');
     } finally {
       setLoading(false);
     }
@@ -48,12 +49,12 @@ export default function TaskItem({ task, onTaskUpdated }: TaskItemProps) {
 
   const handleDelete = async () => {
     setLoading(true);
-    setError('');
     try {
       await api.deleteTask(task.id);
+      success('Task deleted successfully');
       onTaskUpdated();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to delete task');
+      error(err instanceof Error ? err.message : 'Failed to delete task');
     } finally {
       setLoading(false);
     }
@@ -62,12 +63,6 @@ export default function TaskItem({ task, onTaskUpdated }: TaskItemProps) {
   if (isEditing) {
     return (
       <div className="border border-blue-300 rounded-lg p-4 bg-blue-50">
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded text-sm mb-3">
-            {error}
-          </div>
-        )}
-
         <div className="space-y-3">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
@@ -117,12 +112,6 @@ export default function TaskItem({ task, onTaskUpdated }: TaskItemProps) {
         <p className="text-red-800 font-medium mb-3">Delete this task?</p>
         <p className="text-sm text-red-700 mb-4">This action cannot be undone.</p>
 
-        {error && (
-          <div className="bg-red-100 border border-red-300 text-red-800 px-3 py-2 rounded text-sm mb-3">
-            {error}
-          </div>
-        )}
-
         <div className="flex gap-2">
           <button
             onClick={handleDelete}
@@ -145,12 +134,6 @@ export default function TaskItem({ task, onTaskUpdated }: TaskItemProps) {
 
   return (
     <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-      {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded text-sm mb-3">
-          {error}
-        </div>
-      )}
-
       <div className="flex items-start gap-3">
         {/* Checkbox */}
         <input

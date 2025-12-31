@@ -6,6 +6,7 @@ import type { TaskCreate } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Textarea from '@/components/ui/Textarea';
+import { useToast } from '@/components/ui/ToastContainer';
 
 interface TaskFormProps {
   onTaskCreated: () => void;
@@ -16,20 +17,20 @@ export default function TaskForm({ onTaskCreated }: TaskFormProps) {
     title: '',
     description: ''
   });
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { success, error } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
 
     try {
       await api.createTask(formData);
       setFormData({ title: '', description: '' });
+      success('Task created successfully!');
       onTaskCreated();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create task');
+      error(err instanceof Error ? err.message : 'Failed to create task');
     } finally {
       setLoading(false);
     }
@@ -38,12 +39,6 @@ export default function TaskForm({ onTaskCreated }: TaskFormProps) {
   return (
     <form onSubmit={handleSubmit} className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
       <h2 className="text-lg sm:text-xl font-bold mb-4">Add New Task</h2>
-
-      {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4 text-sm">
-          {error}
-        </div>
-      )}
 
       <div className="space-y-4">
         <Input

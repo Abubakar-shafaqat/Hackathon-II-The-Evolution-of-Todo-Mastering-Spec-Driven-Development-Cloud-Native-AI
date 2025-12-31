@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { api } from '@/lib/api';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import { useToast } from '@/components/ui/ToastContainer';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -14,19 +15,19 @@ export default function SignupPage() {
     password: '',
     name: ''
   });
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { success, error } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
 
     try {
       await api.signup(formData);
+      success('Account created successfully! Redirecting...');
       router.push('/dashboard');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Signup failed');
+      error(err instanceof Error ? err.message : 'Signup failed');
     } finally {
       setLoading(false);
     }
@@ -48,12 +49,6 @@ export default function SignupPage() {
         </div>
 
         <form className="mt-6 sm:mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm">
-              {error}
-            </div>
-          )}
-
           <div className="space-y-4">
             <Input
               label="Email address"
