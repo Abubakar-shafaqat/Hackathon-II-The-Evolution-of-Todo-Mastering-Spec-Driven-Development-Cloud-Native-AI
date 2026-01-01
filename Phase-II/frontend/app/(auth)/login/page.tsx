@@ -34,70 +34,87 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-6 sm:space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-2xl sm:text-3xl font-bold text-gray-900">
-            Sign in to your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Don't have an account?{' '}
-            <Link href="/signup" className="font-medium text-blue-600 hover:text-blue-500">
-              Sign up
-            </Link>
-          </p>
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black px-4 sm:px-6 lg:px-8 animate-fade-in relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-white/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      </div>
 
-        <form className="mt-6 sm:mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            <Input
-              label="Email address"
-              id="email"
-              name="email"
-              type="email"
-              required
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              placeholder="you@example.com"
-              fullWidth
-            />
-
-            <Input
-              label="Password"
-              id="password"
-              name="password"
-              type="password"
-              required
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              placeholder="Enter your password"
-              fullWidth
-            />
-
-            <div className="flex items-center">
-              <input
-                id="remember_me"
-                name="remember_me"
-                type="checkbox"
-                checked={formData.remember_me}
-                onChange={(e) => setFormData({ ...formData, remember_me: e.target.checked })}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
-                Remember me
-              </label>
-            </div>
+      <div className="max-w-md w-full space-y-8 relative z-10">
+        <div className="bg-gradient-to-br from-gray-900 to-black border-2 border-gray-800 rounded-2xl shadow-2xl shadow-white/5 p-8 sm:p-10 animate-scale-in">
+          <div className="mb-8">
+            <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-3 tracking-tight animate-slide-up">
+              Welcome Back
+            </h2>
+            <div className="h-1 w-20 bg-white mx-auto rounded-full mb-4"></div>
+            <p className="text-center text-base text-gray-400 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+              Don't have an account?{' '}
+              <Link href="/signup" className="font-bold text-white hover:text-gray-300 transition-colors duration-300 underline underline-offset-4">
+                Sign up
+              </Link>
+            </p>
           </div>
 
-          <Button
-            type="submit"
-            loading={loading}
-            fullWidth
-            variant="primary"
-          >
-            Sign in
-          </Button>
-        </form>
+          <form className="space-y-6 animate-fade-in" style={{ animationDelay: '0.2s' }} onSubmit={handleSubmit}>
+            <div className="space-y-5">
+              <Input
+                label="Email address"
+                id="email"
+                name="email"
+                type="email"
+                required
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                placeholder="you@example.com"
+                fullWidth
+              />
+
+              <Input
+                label="Password"
+                id="password"
+                name="password"
+                type="password"
+                required
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                placeholder="Enter your password"
+                fullWidth
+              />
+
+              <div className="flex items-center">
+                <input
+                  id="remember_me"
+                  name="remember_me"
+                  type="checkbox"
+                  checked={formData.remember_me}
+                  onChange={(e) => setFormData({ ...formData, remember_me: e.target.checked })}
+                  className="h-5 w-5 bg-gray-800 border-2 border-gray-700 text-white rounded focus:ring-2 focus:ring-white transition-all duration-300 cursor-pointer"
+                />
+                <label htmlFor="remember_me" className="ml-3 block text-sm text-gray-300 font-medium">
+                  Remember me
+                </label>
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              loading={loading}
+              fullWidth
+              variant="primary"
+              className="mt-6"
+            >
+              <span className="flex items-center justify-center gap-2 text-lg">
+                {!loading && (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                  </svg>
+                )}
+                Sign in
+              </span>
+            </Button>
+          </form>
+        </div>
       </div>
     </div>
   );

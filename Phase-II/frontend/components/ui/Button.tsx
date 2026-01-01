@@ -21,7 +21,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+    const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 active:scale-95';
 
     // Responsive touch targets: h-11 on mobile (<640px), h-10 on desktop
     const sizeStyles = {
@@ -31,10 +31,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const variantStyles = {
-      primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
-      secondary: 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-blue-500',
-      danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
-      ghost: 'text-gray-600 hover:bg-gray-100 focus:ring-gray-500',
+      primary: 'bg-black text-white hover:bg-gray-900 hover:shadow-lg focus:ring-gray-500',
+      secondary: 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:shadow-md focus:ring-gray-500',
+      danger: 'bg-gray-800 text-white hover:bg-gray-900 hover:shadow-lg focus:ring-gray-500',
+      ghost: 'text-gray-600 hover:bg-gray-100 hover:shadow-sm focus:ring-gray-500',
     };
 
     const widthStyles = fullWidth ? 'w-full' : '';

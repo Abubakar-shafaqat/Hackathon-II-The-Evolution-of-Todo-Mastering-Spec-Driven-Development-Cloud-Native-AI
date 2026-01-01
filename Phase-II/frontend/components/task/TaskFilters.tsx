@@ -13,15 +13,15 @@ export default function TaskFilters({ currentFilter, onFilterChange }: TaskFilte
   ];
 
   return (
-    <div className="flex gap-2 mb-6">
+    <div className="flex gap-2 sm:gap-3 mb-6 flex-wrap">
       {filters.map((filter) => (
         <button
           key={filter.value}
           onClick={() => onFilterChange(filter.value)}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+          className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl font-bold text-sm sm:text-base transition-all duration-300 ${
             currentFilter === filter.value
-              ? 'bg-blue-600 text-white shadow-md'
-              : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+              ? 'bg-white text-black shadow-xl scale-105'
+              : 'bg-gray-700 text-gray-200 border-2 border-gray-600 hover:bg-gray-600 hover:text-white hover:border-gray-500 hover:scale-105'
           }`}
         >
           {filter.label}

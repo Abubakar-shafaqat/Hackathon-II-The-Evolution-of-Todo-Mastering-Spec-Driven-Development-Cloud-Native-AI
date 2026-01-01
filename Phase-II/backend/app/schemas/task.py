@@ -49,6 +49,7 @@ class TaskResponse(BaseModel):
     updated_at: datetime
 
     class Config:
+        from_attributes = True  # Allow validation from SQLModel objects
         json_schema_extra = {
             "example": {
                 "id": 1,

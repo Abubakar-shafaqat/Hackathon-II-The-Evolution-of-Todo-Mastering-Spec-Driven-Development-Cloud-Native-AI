@@ -26,15 +26,15 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     // Full width on mobile, max-width on desktop
     const widthStyles = fullWidth ? 'w-full sm:max-w-md' : '';
 
-    const baseStyles = 'px-3 py-2 border rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 resize-vertical';
+    const baseStyles = 'px-3 py-2 border rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 resize-vertical placeholder:text-gray-400';
 
     const stateStyles = error
-      ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-      : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500';
+      ? 'border-red-600 focus:ring-red-500 focus:border-red-500'
+      : 'border-gray-700 focus:ring-white focus:border-white';
 
     const disabledStyles = props.disabled
-      ? 'bg-gray-50 text-gray-500 cursor-not-allowed'
-      : 'bg-white text-gray-900';
+      ? 'bg-gray-800 text-gray-500 cursor-not-allowed'
+      : 'bg-gray-800 text-white';
 
     const combinedClassName = `${baseStyles} ${stateStyles} ${disabledStyles} ${widthStyles} ${className}`;
 
@@ -43,10 +43,10 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label
             htmlFor={textareaId}
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm font-medium text-white mb-1"
           >
             {label}
-            {props.required && <span className="text-red-500 ml-1">*</span>}
+            {props.required && <span className="text-white ml-1">*</span>}
           </label>
         )}
 
@@ -69,7 +69,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {error && (
           <p
             id={`${textareaId}-error`}
-            className="mt-1 text-sm text-red-600"
+            className="mt-1 text-sm text-red-400 font-medium"
             role="alert"
           >
             {error}
@@ -79,7 +79,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {helperText && !error && (
           <p
             id={`${textareaId}-helper`}
-            className="mt-1 text-sm text-gray-500"
+            className="mt-1 text-sm text-gray-400"
           >
             {helperText}
           </p>

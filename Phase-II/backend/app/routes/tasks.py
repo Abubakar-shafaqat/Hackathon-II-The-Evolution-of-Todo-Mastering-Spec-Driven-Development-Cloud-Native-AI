@@ -80,6 +80,9 @@ async def list_tasks(
     # Execute query
     tasks = session.exec(query).all()
 
+    # Convert Task objects to TaskResponse objects
+    task_responses = [TaskResponse.model_validate(task) for task in tasks]
+
     # Calculate statistics (always from all tasks, not filtered)
     all_tasks = session.exec(
         select(Task).where(Task.user_id == user_id)
@@ -90,7 +93,7 @@ async def list_tasks(
     pending = total - completed
 
     return TaskListResponse(
-        tasks=tasks,
+        tasks=task_responses,
         total=total,
         completed=completed,
         pending=pending
