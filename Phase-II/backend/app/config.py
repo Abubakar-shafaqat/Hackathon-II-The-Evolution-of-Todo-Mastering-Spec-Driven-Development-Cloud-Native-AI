@@ -5,6 +5,7 @@ Manages environment variables and application settings using Pydantic BaseSettin
 
 from pydantic_settings import BaseSettings
 from typing import Optional
+import os
 
 
 class Settings(BaseSettings):
@@ -12,7 +13,7 @@ class Settings(BaseSettings):
 
     # Database Configuration
     # Note: Use postgresql:// (psycopg2) for sync operations, not postgresql+asyncpg://
-    DATABASE_URL: str = "postgresql://user:password@localhost/todo_db"
+    DATABASE_URL: str = "postgresql://neondb_owner:npg_iKdfhC9Iz5uN@ep-shiny-bar-adtgsazt-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require"
 
     # Authentication & Security
     BETTER_AUTH_SECRET: str = "your-secret-key-min-32-characters-long-change-in-production"
